@@ -1,6 +1,4 @@
-import numpy as np
 import streamlit as st
-import tensorflow as tf
 from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
 from tensorflow.keras.layers import TextVectorization
 from tensorflow.keras.models import Sequential
