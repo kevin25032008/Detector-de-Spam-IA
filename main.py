@@ -1,7 +1,5 @@
 import streamlit as st
-from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
-from tensorflow.keras.layers import TextVectorization
-from tensorflow.keras.models import Sequential
+import time
 
 # Configuração da página do Streamlit
 st.set_page_config(
