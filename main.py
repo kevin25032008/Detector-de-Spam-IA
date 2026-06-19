@@ -1,68 +1,32 @@
 import streamlit as st
 import time
 
-# 1. Configuração da Página Streamlit
-st.set_page_config(page_title="SafeSupport IA", page_icon="🛡️", layout="centered")
+# 1. Configuração da Página
+st.set_page_config(page_title="Detector de Spam IA", page_icon="🚫", layout="centered")
 
-# --- DESIGN E TÍTULO ---
-st.title("🛡️ SafeSupport IA – Triagem e Atendimento")
-st.caption("Sistema inteligente de atendimento integrando Redes Neurais (TensorFlow) e Engenharia de Prompt.")
-st.markdown("<style>div.stButton > button:first-child { background-color: #2E7D32; color: white; }</style>", unsafe_allow_html=True) # Botão Verde
+st.title("🚫 Detector de Mensagens Spam com IA")
+st.caption("Protótipo de segurança utilizando inteligência artificial para detecção de fraudes e spams.")
 st.markdown("---")
 
-# 2. Input do Usuário
-user_input = st.text_area("Descreva o ocorrido ou sua dúvida técnica:", placeholder="Ex: Meu produto veio quebrado! ou Como ligo o aparelho?")
+# Input do usuário
+texto_usuario = st.text_area("Cole a mensagem suspeita aqui:", placeholder="Ex: Ganhe 1 milhão de reais agora clicando neste link!")
 
-# Botão de enviar
-if st.button("Iniciar Análise Inteligente", type="primary"):
-    if user_input:
-        with st.spinner("🧠 Redes Neurais do TensorFlow analisando o padrão do texto..."):
-            time.sleep(1) # Simula o tempo de processamento do TensorFlow
+if st.button("Analisar Mensagem", type="primary"):
+    if texto_usuario:
+        with st.spinner("🔍 Analisando padrões textuais com inteligência artificial..."):
+            time.sleep(1) # Simulação do tempo de resposta da rede neural
             
-            # SIMULAÇÃO DO TENSORFLOW
-            if any(palavra in user_input.lower() for palavra in ["quebrado", "defeito", "ruim", "erro", "estragou"]):
-                classificacao = "ALTA URGÊNCIA (Reclamação Crítica / Defeito)"
-                cor_alerta = "danger"
-                
-                # SIMULAÇÃO DO FRAMEWORK DE PROMPT (Resposta para caso urgente)
-                resposta_prompt = f"""
-                **[PROMPT FRAMEWORK: Ativando Persona de Ouvidoria]**
-                
-                Olá! Sentimos muito pelo transtorno com o seu produto. 
-                O nosso modelo identificou que o seu caso exige **{classificacao}**. 
-                
-                Direcionamos o seu histórico para a nossa equipe de contingência humana. Um especialista entrará em contato prioritário em instantes. 
-                
-                *Código do Incidente: #2026-{int(time.time())}*
-                """
+            # Lógica de detecção inteligente simulada (sem travar o servidor)
+            palavras_spam = ["ganhe", "dinheiro", "clique", "link", "grátis", "promocional", "vence hoje", "urgente", "pix", "sorteio"]
+            eh_spam = any(palavra in texto_usuario.lower() for palavra in palavras_spam)
+            
+            st.subheader("📊 Resultado da Análise")
+            if eh_spam:
+                st.toast("Spam detectado!", icon="🚨")
+                st.error("🚨 ALERTA: Esta mensagem tem alta probabilidade de ser SPAM/FRAUDE!")
+                st.warning("**Recomendação:** Não clique em links e bloqueie o remetente imediatamente.")
             else:
-                classificacao = "RESOLUÇÃO IMEDIATA (Dúvida Geral / Operação)"
-                cor_alerta = "info"
-                
-                # SIMULAÇÃO DO FRAMEWORK DE PROMPT (Resposta para caso simples)
-                resposta_prompt = f"""
-                **[PROMPT FRAMEWORK: Ativando Persona de Suporte Técnico Nível 1]**
-                
-                Olá! Obrigado por entrar em contato. 
-                O modelo classificou sua solicitação como **{classificacao}**.
-                
-                Instruções sugeridas para: '{user_input}': 
-                Verifique se os cabos estão firmes e se o interruptor principal está acionado. O guia rápido completo foi enviado ao seu painel.
-                """
-
-        # --- SEÇÃO DE RESULTADOS ---
-        st.subheader("📊 Diagnóstico do Modelo TensorFlow")
-        if cor_alerta == "danger":
-            st.toast("Alerta crítico detectado!", icon="⚠️")
-            st.error(f"Classe de Risco: {classificacao}")
-        else:
-            st.toast("Mensagem processada normalmente.", icon="✅")
-            st.success(f"Classe Informativa: {classificacao}")
-            
-        st.markdown("---")
-        
-        st.subheader("💬 Output do Framework de Prompt")
-        st.warning(resposta_prompt)
-        
+                st.toast("Mensagem segura.", icon="✅")
+                st.success("✅ Mensagem Segura: Nenhum padrão de fraude óbvio foi detectado.")
     else:
-        st.warning("Por favor, digite alguma coisa antes de enviar.")
+        st.warning("Por favor, digite ou cole uma mensagem antes de analisar.")
